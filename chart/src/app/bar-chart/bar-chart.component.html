@@ -1,3 +1,7 @@
 <div class="chart-container">
     <canvas id="canvas">{{chart}}</canvas>
 </div>
+
+<select [(ngModel)]="year" (change)="getYearData()">
+    <option *ngFor="let year of YEARS" [value]="year">{{year}}</option>
+</select>
