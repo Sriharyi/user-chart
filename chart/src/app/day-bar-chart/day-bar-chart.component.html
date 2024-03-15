@@ -1,0 +1,11 @@
+<div class="chart-container">
+    <canvas id="canvas">{{chart}}</canvas>
+</div>
+
+<select [(ngModel)]="year">
+    <option *ngFor="let year of YEARS" [value]="year">{{year}}</option>
+</select>
+
+<select [(ngModel)]="month" (change)="getMonthData()">
+    <option *ngFor="let month of MONTHS" [value]="month.key">{{month.value}}</option>
+</select>

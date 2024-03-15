@@ -1,40 +1,57 @@
 import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
+
+import { UserService } from '../_services/user.service';
+import { YEARS } from '../_helpers/constant';
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent {
-  chart: any = [];
 
+  year: number = 2023;
+
+  chart: Chart | null = null;
+    
+  readonly YEARS:number[] = YEARS;
+
+  constructor(private userService: UserService) { }
+
+  labels: string[] = [];
+  data: number[] = [];
   ngOnInit() {
+    this.getYearData();
+  }
 
-    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const data = [50, 75, 150, 100, 200, 175, 80, 90, 100, 120, 130, 140]
 
-    this.chart = new Chart('canvas', {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: '# of User Registrations',
-            data: data,
-          },
-          {
-            label: '# of User Logins',
-            data: data,
-          }
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
+  getYearData() {
+    this.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    this.userService.getRegistrations(this.year).subscribe((data) => {
+      this.data = data.map((d) => d.count);
+      if (this.chart) {
+        this.chart.destroy();
+      }
+      this.chart = new Chart('canvas', {
+        type: 'bar',
+        data: {
+          labels: this.labels,
+          datasets: [
+            {
+              label: '# of User Registrations',
+              data: this.data,
+            } 
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
           },
         },
-      },
+      });
     });
   }
+
 }
