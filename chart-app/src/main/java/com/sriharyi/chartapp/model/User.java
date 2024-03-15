@@ -37,16 +37,19 @@ public class User {
         @Field("age")
         private Integer age;
 
-        @Field("register_Date")
+        @Field("registration_date")
         private LocalDateTime registrationDate;
 
         @Field("country")
         private String country;
 
+        @Field("state")
+        private String state;
+
         @Field("latitude")
-        private String latitude;
+        private Double latitude;
 
         @Field("longitude")
-        private String longitude; 
+        private Double longitude; 
 
 }
