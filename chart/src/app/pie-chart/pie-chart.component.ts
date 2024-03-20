@@ -30,6 +30,9 @@ export class PieChartComponent {
     if(this.chart){
       this.chart.destroy();
     }
+    const numDataPoints = this.data.length;
+    const backgroundColor = this.generateColorArray(numDataPoints);
+
     this.chart = new Chart('canvas', {
       type: 'pie',
       data: {
@@ -38,10 +41,24 @@ export class PieChartComponent {
           {
             label: 'State',
             data: this.data,
+            backgroundColor:backgroundColor,
+            hoverOffset:4
           }
         ],
       },
     });
+  }
+
+  generateColorArray(numColors:number): string[] {
+     let colors: string[] = [];
+     for(let i = 0; i < numColors ; i++)
+     {
+       const red = Math.floor(Math.random()*256)
+       const green = Math.floor(Math.random()*256)
+       const blue = Math.floor(Math.random()*256)
+       colors.push(`rgb(${red},${green},${blue})`)
+     }
+     return colors;
   }
 
 }

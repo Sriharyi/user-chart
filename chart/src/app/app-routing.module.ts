@@ -28,9 +28,6 @@ const routes: Routes = [
   },{
     path: "login-log",
     component:LoginLogComponent
-  },{
-    path:"login-density",
-    component: LoginDensityComponent
   }
 
 ];
