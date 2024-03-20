@@ -92,9 +92,13 @@ public class UserDal {
         }
 
         public List<UserRegistrationCountByState> getUserRegistrationsByState() {
+                Criteria criteria = Criteria.where("country").is("India");
+
                 GroupOperation groupOperation = Aggregation.group("state").count().as("count");
                 ProjectionOperation projectionOperation = Aggregation.project("count").and("_id").as("state");
-                Aggregation aggregation = Aggregation.newAggregation(groupOperation, projectionOperation);
+                Aggregation aggregation = Aggregation.newAggregation( 
+                        Aggregation.match(criteria),        
+                groupOperation, projectionOperation);
                 AggregationResults<UserRegistrationCountByState> results = mongoTemplate.aggregate(aggregation,
                                 User.class,
                                 UserRegistrationCountByState.class);
