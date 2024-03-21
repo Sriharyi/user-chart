@@ -1,8 +1,11 @@
+<div class="card flex justify-content-center">
+    <h1> User Registration By Month Wise:</h1>
+    <div class="dd-container">
+        <h3> Select Year:</h3>
+    <p-dropdown [options]="YEARS" class="dropdown" [(ngModel)]="year" (onChange)="getYearData()"></p-dropdown>
+    </div>
+</div>
+
 <div class="chart-container">
     <canvas id="canvas">{{chart}}</canvas>
 </div>
-
-<select [(ngModel)]="year" (change)="getYearData()">
-    <option *ngFor="let year of YEARS" [value]="year">{{year}}</option>
-</select>
-
