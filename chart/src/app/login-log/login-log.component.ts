@@ -11,18 +11,20 @@ import { LoginLog } from '../_models/login';
 export class LoginLogComponent {
 
     chart : Chart | null = null;
+    logDate: Date = new Date();
 
     constructor(private loginService:LoginService) { }
 
-    logDate: Date = new Date();
     ngOnInit():void {
+     this.getLoginLog();
+    }
+
+    getLoginLog() {
       this.logDate = new Date(2024,2,14);
       this.logDate.setMinutes(this.logDate.getMinutes() - this.logDate.getTimezoneOffset());
       this.loginService.getLoginLog(this.logDate).subscribe({
         next: (response) => {
-         console.log(response);
           this.createChart(response);
-        
         }
       });
     }

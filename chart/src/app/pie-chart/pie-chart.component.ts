@@ -14,7 +14,7 @@ export class PieChartComponent {
   labels: string[] = [];
   data: number[] = [];
 
-  constructor(private userService:UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getRegistrationByState().subscribe((data) => {
@@ -26,8 +26,8 @@ export class PieChartComponent {
     });
   }
 
-  createChart(){
-    if(this.chart){
+  createChart() {
+    if (this.chart) {
       this.chart.destroy();
     }
     const numDataPoints = this.data.length;
@@ -41,24 +41,26 @@ export class PieChartComponent {
           {
             label: 'State',
             data: this.data,
-            backgroundColor:backgroundColor,
-            hoverOffset:4
+            backgroundColor: backgroundColor,
+            hoverOffset: 4
           }
         ],
       },
     });
   }
 
-  generateColorArray(numColors:number): string[] {
-     let colors: string[] = [];
-     for(let i = 0; i < numColors ; i++)
-     {
-       const red = Math.floor(Math.random()*256)
-       const green = Math.floor(Math.random()*256)
-       const blue = Math.floor(Math.random()*256)
-       colors.push(`rgb(${red},${green},${blue})`)
-     }
-     return colors;
+  generateColorArray(numColors: number): string[] {
+    const colors: string[] = [];
+
+    // colors.push(`rgb()`)
+
+    for (let i = 5; i < numColors; i++) {
+      const red = Math.floor(Math.random() * 256)
+      const green = Math.floor(Math.random() * 256)
+      const blue = Math.floor(Math.random() * 256)
+      colors.push(`rgb(${red},${green},${blue})`)
+    }
+    return colors;
   }
 
 }
